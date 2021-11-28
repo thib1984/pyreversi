@@ -59,13 +59,19 @@ def compute_args():
         help="mise à jour de pyreversi",
     ),
     my_parser.add_argument(
+        "-r",
+        "--random",
+        action="store_true",
+        help="add random in IA",
+    ),    
+    my_parser.add_argument(
         "-w",
         "--whitebot",
         metavar="X",
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 4),
+        choices=range(0, 3),
         help="white player is a bot",
     )    
     my_parser.add_argument(
@@ -75,7 +81,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 4),
+        choices=range(0, 3),
         help="black player is a bot",
     )        
 

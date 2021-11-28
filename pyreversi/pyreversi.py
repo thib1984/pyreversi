@@ -108,17 +108,20 @@ def switch(joueur):
     return joueur
 
 def calcul_bot(my_plateau, joueur, level):
+    available_moves = availableMoves(my_plateau,joueur)
+    if compute_args().random:
+        random.shuffle(available_moves)
     if compute_args().verbose:
-        print("availableMoves : " + str(availableMoves(my_plateau,joueur)))  
-    if level==1:
-        choice = random.choice(availableMoves(my_plateau,joueur))
+        print("availableMoves : " + str(available_moves))  
+    if level==0:
+        choice = available_moves[0]
         if compute_args().verbose:
             print("choice : " + choice)
         return choice    
-    if level==2:
+    if level==1:
         best_move=""
         best_gain=0
-        for move in availableMoves(my_plateau,joueur):
+        for move in available_moves:
             sandbox=copy.deepcopy(my_plateau)
             calcul_nouveau_plateau (sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
             gain = score(joueur,sandbox)-score(joueur,my_plateau)
@@ -130,16 +133,22 @@ def calcul_bot(my_plateau, joueur, level):
         if compute_args().verbose:
             print("best move : " + best_move + " with " + str(best_gain) + " pts")                
         return best_move
-    if level==3:
-        moves=availableMoves(my_plateau,joueur)
+    if level==2:
+        moves=available_moves
         #on vise les coins
-        for move in ["A1","A8","H1","H8"]:
+        corners = ["A1","A8","H1","H8"]
+        if compute_args().random:
+            random.shuffle(corners)
+        for move in corners:
             if move in moves:
                 if compute_args().verbose:
                     print("corner available!")
                 return move
         #on evite d'offrir les coins
-        for move in ["A2","B2","B1","G1","G2","H2","A7","B7","B8","G8","G7","H7"]:
+        close_corners = ["A2","B2","B1","G1","G2","H2","A7","B7","B8","G8","G7","H7"]
+        if compute_args().random:
+            random.shuffle(close_corners)        
+        for move in close_corners:
             if move in moves and len(moves)>1:
                 if compute_args().verbose:
                     print(move + " can offer a corner! Remove it")
@@ -158,7 +167,7 @@ def calcul_bot(my_plateau, joueur, level):
         if compute_args().verbose:
             print("best move : " + best_move + " with " + str(best_gain) + " pts")                   
         return best_move        
-    return availableMoves(my_plateau,joueur)[0]
+
     
 
 def availableMoves(my_plateau, joueur):

@@ -1,3 +1,7 @@
+## 0.3.3
+
+- [x] randomize IA
+- [x] fusion 0-1 level
 ## 0.3.2
 
 - [x] fix start position
