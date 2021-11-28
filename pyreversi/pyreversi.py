@@ -5,16 +5,21 @@ from columnar import columnar
 from click import style
 import os
 import re
+import random
+
+
+from pyreversi.args import compute_args
 
 
 def clearConsole():
-    command = "clear"
-    if os.name in (
-        "nt",
-        "dos",
-    ):  # If Machine is running on Windows, use cls
-        command = "cls"
-    os.system(command)
+    if not compute_args().verbose:
+        command = "clear"
+        if os.name in (
+            "nt",
+            "dos",
+        ):  # If Machine is running on Windows, use cls
+            command = "cls"
+        os.system(command)
 
 
 BLACK = "\U000026AB"
@@ -41,12 +46,12 @@ def play():
             joueur = BLACK
         clearConsole()
         display_plateau(my_plateau)
-        if not canMove(my_plateau, joueur):
+        if not availableMoves(my_plateau, joueur):
             if joueur == WHITE:
                 joueur_against = BLACK
             else:
                 joueur_against = WHITE
-            if not canMove(my_plateau, joueur_against):
+            if not availableMoves(my_plateau, joueur_against):
                 print("partie terminee!")
                 if score(WHITE,my_plateau)>score(BLACK,my_plateau):
                     print("victoire "+WHITE+"!") 
@@ -59,14 +64,28 @@ def play():
                 joueur
                 + " , pas de mouvement possible, tapez une touche"
             )
+            if joueur == None or joueur == BLACK:
+                joueur = WHITE
+            else:
+                joueur = BLACK            
         while True:
             while True:
-                answer = input(joueur + " , enter your move : ")
-                if re.match("[A-H][1-8]", answer):
+                if (joueur == WHITE and compute_args().whitebot==-1) or (joueur == BLACK and compute_args().blackbot==-1):
+                    answer = input(joueur + " , enter your move : ")
+                    if re.match("[A-H][1-8]", answer):
+                        break
+                    clearConsole()
+                    display_plateau(my_plateau)
+                    print("no valid place")
+                else:
+                    if joueur == WHITE:
+                        level= compute_args().whitebot
+                    else:
+                        level= compute_args().blackbot                  
+                    answer=calcul_bot(my_plateau, joueur,level)
+                    print(joueur + " , plays move : " + answer)
+                    input("tapez une touche")
                     break
-                clearConsole()
-                display_plateau(my_plateau)
-                print("no valid place")
             column = ord(answer[0].lower()) - 96 - 1
             line = int(answer[1]) - 1
             if is_valid_move(my_plateau, joueur, line, column):
@@ -76,13 +95,21 @@ def play():
             print("no valid move")
         calcul_nouveau_plateau(my_plateau, joueur, line, column)
 
+def calcul_bot(my_plateau, joueur, level):
+    if level==0:
+        return availableMoves(my_plateau,joueur)[0]
+    else:
+        return random.choice(availableMoves(my_plateau,joueur))
 
-def canMove(my_plateau, joueur):
+def availableMoves(my_plateau, joueur):
+    moves=[]
     for i in range(0, 8):
         for j in range(0, 8):
             if is_valid_move(my_plateau, joueur, i, j):
-                return True
-    return False
+                moves.append(chr(65+j)+str(i+1))
+    if compute_args().verbose:
+        print("availableMoves : " + str(moves))            
+    return moves
 
 
 def is_valid_move(my_plateau, joueur, line, column):

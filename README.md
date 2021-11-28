@@ -1,6 +1,6 @@
 # pyreversi
 
-pyreversi is a reversi game in your terminal
+pyreversi is a reversi game in your terminal with IA available.
 
 # Démo
 
@@ -11,9 +11,18 @@ pyreversi is a reversi game in your terminal
 
 ``pyreversi``
 
+## IA options
+
+- ``-b --blackbot [int]`` : black player is a bot, with level [int]
+- ``-w --whitebot [int]`` : white player is a bot, with level [int]
+
+- level 0 : first available choice
+- level 1 : random in available choices
+
 ## Other options
 
-``pyreversi -u`` update the package
+- ``-u/--update`` update the package
+- ``-v/--verbose`` verbose mode
 
 # ⚙️ Install
 

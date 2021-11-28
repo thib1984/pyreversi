@@ -28,7 +28,7 @@ def compute_args():
     check args and return them
     """
     my_parser = argparse.ArgumentParser(
-        description="pyreversi affiche les prévisions méteo pour les communes françaises dans votre terminal.",
+        description="pyreversi is a reversi game in your terminal with IA available.",
         epilog="""
         Full documentation at: <https://github.com/thib1984/pyreversi>.
         Report bugs to <https://github.com/thib1984/pyreversi/issues>.
@@ -39,80 +39,39 @@ def compute_args():
         Written by thib1984.""",
         formatter_class=CustomHelpFormatter,
     )
-    my_group = my_parser.add_mutually_exclusive_group()
-    my_group.add_argument(
-        "town",
-        metavar="VILLE",
-        type=str,
-        nargs="?",
-        help="affichage des données météo par nom de ville -si absent, la VILLE est déduite de l'ip-",
-    )
-    my_parser.add_argument(
-        "-j",
-        "--jour",
-        metavar="JOUR",
-        action="store",
-        type=int,
-        default=-1,
-        choices=range(0, 5),
-        help="affichage des données météo détaillées pour [JOUR] (0 pour le jour actuel, 1 pour le J+1, ...)",
-    ) 
-    my_group.add_argument(
-        "-p",
-        "--post",
-        action="store",
-        metavar="CODE_POSTAL",
-        type=str,
-        help="affichage des données météo par CODE_POSTAL",
-    )  
-    my_group.add_argument(
-        "-g",
-        "--gps",
-        metavar=("LATITUDE", "LONGITUDE"),
-        action="store",
-        nargs=2,
-        type=str,
-        help="affichage des données météo par coordonnées GPS",
-    )
-    my_group.add_argument(
-        "-s",
-        "--search",
-        action="store",
-        metavar="RECHERCHE",
-        type=str,
-        help="ville ou code postal à rechercher",
-    )        
-    my_parser.add_argument(
-        "-n",
-        "--nocolor",
-        action="store_true",
-        help="désactiver couleur et emojis en sortie -à utiliser en cas de problème d'affichage-",
-    )
-    my_parser.add_argument(
-        "-c",
-        "--condensate",
-        action="store_true",
-        help="condenser la sortie",
-    )
-    my_parser.add_argument(
-        "-C",
-        "--cache",
-        action="store_true",
-        help="rafraichit le cache des villes",
-    )    
+
     my_parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
         help="mode verbeux",
     )              
-    my_group.add_argument(
+    my_parser.add_argument(
         "-u",
         "--update",
         action="store_true",
         help="mise à jour de pyreversi",
-    )
-
+    ),
+    my_parser.add_argument(
+        "-w",
+        "--whitebot",
+        metavar="X",
+        action="store",
+        type=int,
+        default=-1,
+        choices=range(0, 2),
+        help="white player is a bot",
+    )    
+    my_parser.add_argument(
+        "-b",
+        "--blackbot",
+        metavar="X",
+        action="store",
+        type=int,
+        default=-1,
+        choices=range(0, 2),
+        help="black player is a bot",
+    )        
 
     args = my_parser.parse_args()
     return args
