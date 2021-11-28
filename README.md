@@ -2,6 +2,10 @@
 
 pyreversi is a reversi game in your terminal
 
+# Démo
+
+![image](./demo_01.png)
+
 
 # 🚀 How to use **pyreversi**
 
