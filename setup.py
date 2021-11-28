@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="pyreversi",
-    version="0.1.0",
+    version="0.1.1",
     description="pyreversi is a reversi game in your terminal",
     long_description="The complete description/installation/use/FAQ is available at : https://github.com/thib1984/pyreversi#readme",
     url="https://github.com/thib1984/pyreversi",
