@@ -1,3 +1,8 @@
+## 0.3.0
+
+- [x] refacto
+- [x] IA : level 2 and 3
+- [x] automode
 ## 0.2.0 
 
 - [x] minimal IA

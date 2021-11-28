@@ -45,7 +45,13 @@ def compute_args():
         "--verbose",
         action="store_true",
         help="mode verbeux",
-    )              
+    )
+    my_parser.add_argument(
+        "-a",
+        "--auto",
+        action="store_true",
+        help="mode auto",
+    )                     
     my_parser.add_argument(
         "-u",
         "--update",
@@ -59,7 +65,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 2),
+        choices=range(0, 4),
         help="white player is a bot",
     )    
     my_parser.add_argument(
@@ -69,7 +75,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 2),
+        choices=range(0, 4),
         help="black player is a bot",
     )        
 

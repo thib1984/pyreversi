@@ -6,6 +6,7 @@ from click import style
 import os
 import re
 import random
+import copy
 
 
 from pyreversi.args import compute_args
@@ -40,17 +41,11 @@ def play():
     ]
     joueur = None
     while True:
-        if joueur == None or joueur == BLACK:
-            joueur = WHITE
-        else:
-            joueur = BLACK
+        joueur = switch(joueur)
         clearConsole()
         display_plateau(my_plateau)
         if not availableMoves(my_plateau, joueur):
-            if joueur == WHITE:
-                joueur_against = BLACK
-            else:
-                joueur_against = WHITE
+            joueur_against = opposite_joueur(joueur)
             if not availableMoves(my_plateau, joueur_against):
                 print("partie terminee!")
                 if score(WHITE,my_plateau)>score(BLACK,my_plateau):
@@ -60,14 +55,12 @@ def play():
                 else:
                     print("égalité!")         
                 os.sys.exit(0)
-            input(
-                joueur
-                + " , pas de mouvement possible, tapez une touche"
-            )
-            if joueur == None or joueur == BLACK:
-                joueur = WHITE
-            else:
-                joueur = BLACK            
+            if not compute_args().auto:
+                input(
+                    joueur
+                    + " , pas de mouvement possible, tapez une touche"
+                )
+            joueur = switch(joueur)         
         while True:
             while True:
                 if (joueur == WHITE and compute_args().whitebot==-1) or (joueur == BLACK and compute_args().blackbot==-1):
@@ -78,13 +71,11 @@ def play():
                     display_plateau(my_plateau)
                     print("no valid place")
                 else:
-                    if joueur == WHITE:
-                        level= compute_args().whitebot
-                    else:
-                        level= compute_args().blackbot                  
+                    level = level_bot(joueur)                  
                     answer=calcul_bot(my_plateau, joueur,level)
                     print(joueur + " , plays move : " + answer)
-                    input("tapez une touche")
+                    if not compute_args().auto:
+                        input("tapez une touche")
                     break
             column = ord(answer[0].lower()) - 96 - 1
             line = int(answer[1]) - 1
@@ -95,20 +86,87 @@ def play():
             print("no valid move")
         calcul_nouveau_plateau(my_plateau, joueur, line, column)
 
-def calcul_bot(my_plateau, joueur, level):
-    if level==0:
-        return availableMoves(my_plateau,joueur)[0]
+def level_bot(joueur):
+    if joueur == WHITE:
+        level= compute_args().whitebot
     else:
-        return random.choice(availableMoves(my_plateau,joueur))
+        level= compute_args().blackbot
+    return level
+
+def opposite_joueur(joueur):
+    if joueur == WHITE:
+        joueur_against = BLACK
+    else:
+        joueur_against = WHITE
+    return joueur_against
+
+def switch(joueur):
+    if joueur == None or joueur == BLACK:
+        joueur = WHITE
+    else:
+        joueur = BLACK
+    return joueur
+
+def calcul_bot(my_plateau, joueur, level):
+    if compute_args().verbose:
+        print("availableMoves : " + str(availableMoves(my_plateau,joueur)))  
+    if level==1:
+        choice = random.choice(availableMoves(my_plateau,joueur))
+        if compute_args().verbose:
+            print("choice : " + choice)
+        return choice    
+    if level==2:
+        best_move=""
+        best_gain=0
+        for move in availableMoves(my_plateau,joueur):
+            sandbox=copy.deepcopy(my_plateau)
+            calcul_nouveau_plateau (sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
+            gain = score(joueur,sandbox)-score(joueur,my_plateau)
+            if gain>best_gain:
+                if compute_args().verbose:
+                    print("better move : " + move + " with " + str(gain) + " pts")
+                best_move=move
+                best_gain=gain
+        if compute_args().verbose:
+            print("best move : " + best_move + " with " + str(best_gain) + " pts")                
+        return best_move
+    if level==3:
+        moves=availableMoves(my_plateau,joueur)
+        #on vise les coins
+        for move in ["A1","A8","H1","H8"]:
+            if move in moves:
+                if compute_args().verbose:
+                    print("corner available!")
+                return move
+        #on evite d'offrir les coins
+        for move in ["A2","B2","B1","G1","G2","H2","A7","B7","B8","G8","G7","H7"]:
+            if move in moves and len(moves)>1:
+                if compute_args().verbose:
+                    print(move + " can offer a corner! Remove it")
+                moves.remove(move)       
+        best_move=""
+        best_gain=0
+        for move in moves:
+            sandbox=copy.deepcopy(my_plateau)
+            calcul_nouveau_plateau (sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
+            gain = score(joueur,sandbox)-score(joueur,my_plateau)
+            if gain>best_gain:
+                if compute_args().verbose:
+                    print("better move : " + move + " with " + str(gain) + " pts")                
+                best_move=move
+                best_gain=gain
+        if compute_args().verbose:
+            print("best move : " + best_move + " with " + str(best_gain) + " pts")                   
+        return best_move        
+    return availableMoves(my_plateau,joueur)[0]
+    
 
 def availableMoves(my_plateau, joueur):
     moves=[]
     for i in range(0, 8):
         for j in range(0, 8):
             if is_valid_move(my_plateau, joueur, i, j):
-                moves.append(chr(65+j)+str(i+1))
-    if compute_args().verbose:
-        print("availableMoves : " + str(moves))            
+                moves.append(chr(65+j)+str(i+1))          
     return moves
 
 
