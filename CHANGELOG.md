@@ -1,3 +1,6 @@
+## 0.4.0
+
+- [x] new IA - level 3
 ## 0.3.3
 
 - [x] randomize IA

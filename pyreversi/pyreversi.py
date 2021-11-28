@@ -157,7 +157,7 @@ def calcul_bot(my_plateau, joueur, level):
         best_gain=0
         for move in moves:
             sandbox=copy.deepcopy(my_plateau)
-            calcul_nouveau_plateau (sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
+            calcul_nouveau_plateau(sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
             gain = score(joueur,sandbox)-score(joueur,my_plateau)
             if gain>best_gain:
                 if compute_args().verbose:
@@ -167,7 +167,51 @@ def calcul_bot(my_plateau, joueur, level):
         if compute_args().verbose:
             print("best move : " + best_move + " with " + str(best_gain) + " pts")                   
         return best_move        
-
+    if level==3:
+        moves=available_moves
+        #on vise les coins
+        corners = ["A1","A8","H1","H8"]
+        if compute_args().random:
+            random.shuffle(corners)
+        for move in corners:
+            if move in moves:
+                if compute_args().verbose:
+                    print("corner available!")
+                return move
+        #on evite d'offrir les coins
+        close_corners = ["A2","B2","B1","G1","G2","H2","A7","B7","B8","G8","G7","H7"]
+        if compute_args().random:
+            random.shuffle(close_corners)        
+        for move in close_corners:
+            if move in moves and len(moves)>1:
+                if compute_args().verbose:
+                    print(move + " can offer a corner! Remove it")
+                moves.remove(move)       
+        best_move=""
+        best_gain=-65
+        for move in moves:
+            sandbox=copy.deepcopy(my_plateau)
+            calcul_nouveau_plateau(sandbox,joueur,int(move[1]) - 1,ord(move[0].lower()) - 96 - 1)     
+            gain = score(joueur,sandbox)-score(joueur,my_plateau)
+            futur_moves=availableMoves(sandbox,switch(joueur))  
+            if not futur_moves:
+                gain = gain - 0
+            best_down_gain=0
+            for futur_move in futur_moves:
+                futur_sandbox=copy.deepcopy(sandbox)
+                calcul_nouveau_plateau(futur_sandbox,switch(joueur),int(futur_move[1]) - 1,ord(futur_move[0].lower()) - 96 - 1)     
+                down_gain = score(switch(joueur),futur_sandbox)-score(switch(joueur),sandbox)              
+                if down_gain>best_down_gain:             
+                    best_down_gain=down_gain
+            gain = gain - best_down_gain
+            if gain>best_gain:
+                if compute_args().verbose:
+                    print("better move : " + move + " with " + str(gain) + " pts")                
+                best_move=move
+                best_gain=gain
+        if compute_args().verbose:
+            print("best move : " + best_move + " with " + str(best_gain) + " pts")                   
+        return best_move 
     
 
 def availableMoves(my_plateau, joueur):

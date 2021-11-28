@@ -19,6 +19,7 @@ pyreversi is a reversi game in your terminal with IA available.
 - level 0 : one in available choice
 - level 1 : max increase score
 - level 2 : max increase score + target corner + not offer corner
+- level 3 : max increase score + target corner + not offer corner considering next turn (with IA level2)
 ## Other options
 
 - ``-u/--update`` update the package
