@@ -69,7 +69,7 @@ def play():
                         break
                     clearConsole()
                     display_plateau(my_plateau)
-                    print("no valid place")
+                    print("no valid place - enter [A-H][1-8] format. For example : B3")
                 else:
                     level = level_bot(joueur)                  
                     answer=calcul_bot(my_plateau, joueur,level)
