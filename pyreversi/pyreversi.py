@@ -2,7 +2,7 @@
 pyreversi use case
 """
 from columnar import columnar
-#from click import style
+from click import style
 import os
 import re
 
