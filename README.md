@@ -1,4 +1,4 @@
-# pyreversi
+# :black_circle: :white_circle: pyreversi :black_circle: :white_circle: 
 
 pyreversi is a reversi game in your terminal with IA available.
 
