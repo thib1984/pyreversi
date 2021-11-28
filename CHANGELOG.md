@@ -1,6 +1,9 @@
+## 0.3.2
+
+- [x] fix start position
 ## 0.3.1
 
-- [ ] explain format
+- [x] explain format
 ## 0.3.0
 
 - [x] refacto
