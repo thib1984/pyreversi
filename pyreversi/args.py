@@ -71,7 +71,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 4),
+        choices=range(0, 5),
         help="white player is a bot",
     )    
     my_parser.add_argument(
@@ -81,7 +81,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 4),
+        choices=range(0, 5),
         help="black player is a bot",
     )        
 
