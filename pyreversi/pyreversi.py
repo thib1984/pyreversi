@@ -23,26 +23,43 @@ def clearConsole():
             command = "cls"
         os.system(command)
 
-
+CLOSE_CORNERS = [
+    "A2",
+    "B2",
+    "B1",
+    "G1",
+    "G2",
+    "H2",
+    "A7",
+    "B7",
+    "B8",
+    "G8",
+    "G7",
+    "H7",
+]
+CORNERS = ["A1", "A8", "H1", "H8"]
 BLACK = "\U000026AB"
 WHITE = "\U000026AA"
 VIDEE = " "
+INIT_PLATEAU = [
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, WHITE, BLACK, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, BLACK, WHITE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+    [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
+]
 
 
 def play():
-    my_plateau = [
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, WHITE, BLACK, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, BLACK, WHITE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-        [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],
-    ]
+
+    my_plateau = INIT_PLATEAU
     joueur = None
+    
     while True:
-        joueur = switch(joueur)
+        joueur = opposite_joueur(joueur)
         clearConsole()
         display_plateau(my_plateau)
         if not availableMoves(my_plateau, joueur):
@@ -65,7 +82,7 @@ def play():
                     joueur
                     + " , pas de mouvement possible, tapez une touche"
                 )
-            joueur = switch(joueur)
+            joueur = opposite_joueur(joueur)
         while True:
             while True:
                 if (
@@ -114,40 +131,15 @@ def opposite_joueur(joueur):
     return joueur_against
 
 
-def switch(joueur):
-    if joueur == None or joueur == BLACK:
-        joueur = WHITE
-    else:
-        joueur = BLACK
-    return joueur
-
-
 def calcul_bot(my_plateau, joueur, level):
     available_moves = availableMoves(my_plateau, joueur)
-    for move in available_moves:
-        sandbox = copy.deepcopy(my_plateau)
-        calcul_nouveau_plateau(
-            sandbox,
-            joueur,
-            int(move[1]) - 1,
-            ord(move[0].lower()) - 96 - 1,
-        )
-        if is_safe_place(
-            sandbox,
-            joueur,
-            int(move[1]) - 1,
-            ord(move[0].lower()) - 96 - 1,
-        ):
-            if compute_args().verbose:
-                print(move + " is a safe move")
     if compute_args().random:
         random.shuffle(available_moves)
     if compute_args().verbose:
         print("availableMoves : " + str(available_moves))
+        liste_safe_moves(my_plateau, joueur, available_moves)
     if level == 0:
         choice = available_moves[0]
-        if compute_args().verbose:
-            print("choice : " + choice)
         return choice
     if level == 1:
         best_move = ""
@@ -184,7 +176,7 @@ def calcul_bot(my_plateau, joueur, level):
     if level == 2:
         moves = available_moves
         # on vise les coins
-        corners = ["A1", "A8", "H1", "H8"]
+        corners = copy.deepcopy(CORNERS)
         if compute_args().random:
             random.shuffle(corners)
         for move in corners:
@@ -193,20 +185,9 @@ def calcul_bot(my_plateau, joueur, level):
                     print("corner available!")
                 return move
         # on evite d'offrir les coins
-        close_corners = [
-            "A2",
-            "B2",
-            "B1",
-            "G1",
-            "G2",
-            "H2",
-            "A7",
-            "B7",
-            "B8",
-            "G8",
-            "G7",
-            "H7",
-        ]
+
+
+        close_corners = copy.deepcopy(CLOSE_CORNERS)
         if compute_args().random:
             random.shuffle(close_corners)
         for move in close_corners:
@@ -248,7 +229,7 @@ def calcul_bot(my_plateau, joueur, level):
     if level == 3:
         moves = available_moves
         # on vise les coins
-        corners = ["A1", "A8", "H1", "H8"]
+        corners = copy.deepcopy(CORNERS)
         if compute_args().random:
             random.shuffle(corners)
         for move in corners:
@@ -257,20 +238,7 @@ def calcul_bot(my_plateau, joueur, level):
                     print("corner available!")
                 return move
         # on evite d'offrir les coins
-        close_corners = [
-            "A2",
-            "B2",
-            "B1",
-            "G1",
-            "G2",
-            "H2",
-            "A7",
-            "B7",
-            "B8",
-            "G8",
-            "G7",
-            "H7",
-        ]
+        close_corners = copy.deepcopy(CLOSE_CORNERS)
         if compute_args().random:
             random.shuffle(close_corners)
         for move in close_corners:
@@ -289,7 +257,7 @@ def calcul_bot(my_plateau, joueur, level):
                 ord(move[0].lower()) - 96 - 1,
             )
             gain = score(joueur, sandbox) - score(joueur, my_plateau)
-            futur_moves = availableMoves(sandbox, switch(joueur))
+            futur_moves = availableMoves(sandbox, opposite_joueur(joueur))
             if not futur_moves:
                 gain = gain - 0
             best_down_gain = 0
@@ -297,13 +265,13 @@ def calcul_bot(my_plateau, joueur, level):
                 futur_sandbox = copy.deepcopy(sandbox)
                 calcul_nouveau_plateau(
                     futur_sandbox,
-                    switch(joueur),
+                    opposite_joueur(joueur),
                     int(futur_move[1]) - 1,
                     ord(futur_move[0].lower()) - 96 - 1,
                 )
                 down_gain = score(
-                    switch(joueur), futur_sandbox
-                ) - score(switch(joueur), sandbox)
+                    opposite_joueur(joueur), futur_sandbox
+                ) - score(opposite_joueur(joueur), sandbox)
                 if down_gain > best_down_gain:
                     best_down_gain = down_gain
             gain = gain - best_down_gain
@@ -332,7 +300,7 @@ def calcul_bot(my_plateau, joueur, level):
     if level == 4:
         moves = available_moves
         # on vise les coins
-        corners = ["A1", "A8", "H1", "H8"]
+        corners = copy.deepcopy(CORNERS)
         if compute_args().random:
             random.shuffle(corners)
         for move in corners:
@@ -341,36 +309,8 @@ def calcul_bot(my_plateau, joueur, level):
                     print("corner available!")
                 return move
         # on evite d'offrir les coins
-        close_corners = [
-            "A2",
-            "B2",
-            "B1",
-            "G1",
-            "G2",
-            "H2",
-            "A7",
-            "B7",
-            "B8",
-            "G8",
-            "G7",
-            "H7",
-        ]
-        if my_plateau[0][0] == joueur:
-            close_corners.remove("A2")
-            close_corners.remove("B2")
-            close_corners.remove("B1")
-        if my_plateau[0][7] == joueur:
-            close_corners.remove("G1")
-            close_corners.remove("G2")
-            close_corners.remove("H2")
-        if my_plateau[7][0] == joueur:
-            close_corners.remove("A7")
-            close_corners.remove("B7")
-            close_corners.remove("B8")
-        if my_plateau[7][7] == joueur:
-            close_corners.remove("G7")
-            close_corners.remove("H7")
-            close_corners.remove("G8")
+        close_corners = copy.deepcopy(CLOSE_CORNERS)
+        delete_safe_close_corners(my_plateau, joueur, close_corners)
         if compute_args().random:
             random.shuffle(close_corners)
         for move in close_corners:
@@ -398,7 +338,7 @@ def calcul_bot(my_plateau, joueur, level):
                     if move=="A2" or move=="B1" or move=="B2":
                         if not is_valid_move(
                             sandbox,
-                            switch(joueur),
+                            opposite_joueur(joueur),
                             0,
                             0,
                         ):
@@ -406,25 +346,25 @@ def calcul_bot(my_plateau, joueur, level):
                     if move=="G1" or move=="G2" or move=="H2":
                         if not is_valid_move(
                             sandbox,
-                            switch(joueur),
+                            opposite_joueur(joueur),
                             0,
-                            0,
+                            7,
                         ):
                             moves.append(move) 
                     if move=="A7" or move=="B7" or move=="B8":
                         if not is_valid_move(
                             sandbox,
-                            switch(joueur),
-                            0,
+                            opposite_joueur(joueur),
+                            7,
                             0,
                         ):
                             moves.append(move)
                     if move=="H7" or move=="G7" or move=="G8":
                         if not is_valid_move(
                             sandbox,
-                            switch(joueur),
-                            0,
-                            0,
+                            opposite_joueur(joueur),
+                            7,
+                            7,
                         ):
                             moves.append(move)  
         if moves==[]:
@@ -442,7 +382,7 @@ def calcul_bot(my_plateau, joueur, level):
             gain = score_with_protected(
                 joueur, sandbox
             ) - score_with_protected(joueur, my_plateau)
-            futur_moves = availableMoves(sandbox, switch(joueur))
+            futur_moves = availableMoves(sandbox, opposite_joueur(joueur))
             if not futur_moves:
                 gain = gain - 0
             best_down_gain = 0
@@ -450,13 +390,13 @@ def calcul_bot(my_plateau, joueur, level):
                 futur_sandbox = copy.deepcopy(sandbox)
                 calcul_nouveau_plateau(
                     futur_sandbox,
-                    switch(joueur),
+                    opposite_joueur(joueur),
                     int(futur_move[1]) - 1,
                     ord(futur_move[0].lower()) - 96 - 1,
                 )
                 down_gain = score_with_protected(
-                    switch(joueur), futur_sandbox
-                ) - score_with_protected(switch(joueur), sandbox)
+                    opposite_joueur(joueur), futur_sandbox
+                ) - score_with_protected(opposite_joueur(joueur), sandbox)
                 if down_gain > best_down_gain:
                     best_down_gain = down_gain
             gain = gain - best_down_gain
@@ -480,6 +420,42 @@ def calcul_bot(my_plateau, joueur, level):
                 + " pts"
             )
         return best_move
+
+def delete_safe_close_corners(my_plateau, joueur, close_corners):
+    if my_plateau[0][0] == joueur:
+        close_corners.remove("A2")
+        close_corners.remove("B2")
+        close_corners.remove("B1")
+    if my_plateau[0][7] == joueur:
+        close_corners.remove("G1")
+        close_corners.remove("G2")
+        close_corners.remove("H2")
+    if my_plateau[7][0] == joueur:
+        close_corners.remove("A7")
+        close_corners.remove("B7")
+        close_corners.remove("B8")
+    if my_plateau[7][7] == joueur:
+        close_corners.remove("G7")
+        close_corners.remove("H7")
+        close_corners.remove("G8")
+
+def liste_safe_moves(my_plateau, joueur, available_moves):
+    for move in available_moves:
+        sandbox = copy.deepcopy(my_plateau)
+        calcul_nouveau_plateau(
+                sandbox,
+                joueur,
+                int(move[1]) - 1,
+                ord(move[0].lower()) - 96 - 1,
+            )
+        if is_safe_place(
+                sandbox,
+                joueur,
+                int(move[1]) - 1,
+                ord(move[0].lower()) - 96 - 1,
+            ):
+            if compute_args().verbose:
+                print(move + " is a safe move")
 
 
 def availableMoves(my_plateau, joueur):

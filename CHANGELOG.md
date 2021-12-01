@@ -1,3 +1,8 @@
+## 1.0.1
+
+- [x] fix IA niveau 4
+- [x] small refactor
+
 ## 1.0.0
 
 - [x] new IA - level 4
