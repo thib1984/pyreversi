@@ -1,3 +1,7 @@
+## 1.0.2
+
+- [x] fix IA niveau 4
+
 ## 1.0.1
 
 - [x] fix IA niveau 4
