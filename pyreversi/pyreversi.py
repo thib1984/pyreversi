@@ -124,10 +124,10 @@ def level_bot(joueur):
 
 
 def opposite_joueur(joueur):
-    if joueur == WHITE:
-        joueur_against = BLACK
-    else:
+    if joueur == BLACK:
         joueur_against = WHITE
+    else:
+        joueur_against = BLACK
     return joueur_against
 
 
