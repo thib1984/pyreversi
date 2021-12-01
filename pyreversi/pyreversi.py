@@ -368,7 +368,9 @@ def calcul_bot(my_plateau, joueur, level):
                         ):
                             moves.append(move)  
         if moves==[]:
-            moves = available_moves                                               
+            moves = availableMoves(my_plateau, joueur)
+            if compute_args().random:
+                random.shuffle(available_moves)                                               
         best_move = ""
         best_gain = -65
         for move in moves:
