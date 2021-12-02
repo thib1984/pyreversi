@@ -65,22 +65,22 @@ def play():
         if not availableMoves(my_plateau, joueur):
             joueur_against = opposite_joueur(joueur)
             if not availableMoves(my_plateau, joueur_against):
-                print("partie terminee!")
+                print("game over!")
                 if score(WHITE, my_plateau) > score(
                     BLACK, my_plateau
                 ):
-                    print("victoire " + WHITE + "!")
+                    print(WHITE + " wins !")
                 elif score(WHITE, my_plateau) < score(
                     BLACK, my_plateau
                 ):
-                    print("victoire " + BLACK + "!")
+                    print(BLACK + " wins !")
                 else:
-                    print("égalité!")
+                    print("draw match !")
                 os.sys.exit(0)
             if not compute_args().auto:
                 input(
                     joueur
-                    + " , pas de mouvement possible, tapez une touche"
+                    + " , no move available, press any key"
                 )
             joueur = opposite_joueur(joueur)
         while True:
@@ -103,7 +103,7 @@ def play():
                     answer = calcul_bot(my_plateau, joueur, level)
                     print(joueur + " , plays move : " + answer)
                     if not compute_args().auto:
-                        input("tapez une touche")
+                        input("press any key")
                     break
             column = ord(answer[0].lower()) - 96 - 1
             line = int(answer[1]) - 1
@@ -133,7 +133,7 @@ def opposite_joueur(joueur):
 
 def calcul_bot(my_plateau, joueur, level):
     available_moves = availableMoves(my_plateau, joueur)
-    if compute_args().random:
+    if not compute_args().fix:
         random.shuffle(available_moves)
     if compute_args().verbose:
         print("availableMoves : " + str(available_moves))
@@ -177,7 +177,7 @@ def calcul_bot(my_plateau, joueur, level):
         moves = available_moves
         # on vise les coins
         corners = copy.deepcopy(CORNERS)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(corners)
         for move in corners:
             if move in moves:
@@ -188,7 +188,7 @@ def calcul_bot(my_plateau, joueur, level):
 
 
         close_corners = copy.deepcopy(CLOSE_CORNERS)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(close_corners)
         for move in close_corners:
             if move in moves and len(moves) > 1:
@@ -230,7 +230,7 @@ def calcul_bot(my_plateau, joueur, level):
         moves = available_moves
         # on vise les coins
         corners = copy.deepcopy(CORNERS)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(corners)
         for move in corners:
             if move in moves:
@@ -239,7 +239,7 @@ def calcul_bot(my_plateau, joueur, level):
                 return move
         # on evite d'offrir les coins
         close_corners = copy.deepcopy(CLOSE_CORNERS)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(close_corners)
         for move in close_corners:
             if move in moves and len(moves) > 1:
@@ -301,7 +301,7 @@ def calcul_bot(my_plateau, joueur, level):
         moves = available_moves
         # on vise les coins
         corners = copy.deepcopy(CORNERS)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(corners)
         for move in corners:
             if move in moves:
@@ -311,7 +311,7 @@ def calcul_bot(my_plateau, joueur, level):
         # on evite d'offrir les coins
         close_corners = copy.deepcopy(CLOSE_CORNERS)
         delete_safe_close_corners(my_plateau, joueur, close_corners)
-        if compute_args().random:
+        if not compute_args().fix:
             random.shuffle(close_corners)
         for move in close_corners:
             if move in moves:
@@ -369,7 +369,7 @@ def calcul_bot(my_plateau, joueur, level):
                             moves.append(move)  
         if moves==[]:
             moves = availableMoves(my_plateau, joueur)
-            if compute_args().random:
+            if not compute_args().fix:
                 random.shuffle(available_moves)                                               
         best_move = ""
         best_gain = -65
@@ -672,15 +672,23 @@ def display_plateau(plateau):
         max_column_width=2,
     )
     print(table)
+    if compute_args().whitebot != -1:
+        pw = WHITE + " (IA lvl " + str(compute_args().whitebot)+")"
+    else:
+        pw = WHITE
+    if compute_args().blackbot != -1:
+        pb = BLACK + " (IA lvl " + str(compute_args().blackbot)+")"
+    else:
+        pb = BLACK               
     print(
         "score : "
-        + WHITE
+        + pb
         + " "
-        + str(score(WHITE, plateau))
-        + " - "
         + str(score(BLACK, plateau))
+        + " - "
+        + str(score(WHITE, plateau))
         + " "
-        + BLACK
+        + pw
     )
 
 

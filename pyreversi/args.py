@@ -41,39 +41,11 @@ def compute_args():
     )
 
     my_parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="mode verbeux",
-    )
-    my_parser.add_argument(
-        "-a",
-        "--auto",
-        action="store_true",
-        help="mode auto",
-    )                     
-    my_parser.add_argument(
-        "-u",
-        "--update",
-        action="store_true",
-        help="mise à jour de pyreversi",
-    ),
-    my_parser.add_argument(
         "-r",
-        "--random",
+        "--rules",
         action="store_true",
-        help="add random in IA",
+        help="display rules of reversi",
     ),    
-    my_parser.add_argument(
-        "-w",
-        "--whitebot",
-        metavar="X",
-        action="store",
-        type=int,
-        default=-1,
-        choices=range(0, 5),
-        help="white player is a bot",
-    )    
     my_parser.add_argument(
         "-b",
         "--blackbot",
@@ -82,8 +54,42 @@ def compute_args():
         type=int,
         default=-1,
         choices=range(0, 5),
-        help="black player is a bot",
+        help="black player is a bot with a level [X] (in 1->4)",
     )        
+    my_parser.add_argument(
+        "-w",
+        "--whitebot",
+        metavar="X",
+        action="store",
+        type=int,
+        default=-1,
+        choices=range(0, 5),
+        help="white player is a bot with a level [X] (in 1->4)",
+    )    
+    my_parser.add_argument(
+        "-a",
+        "--auto",
+        action="store_true",
+        help="auto mode. Don't ask for uncessary actions.",
+    )                     
+    my_parser.add_argument(
+        "-f",
+        "--fix",
+        action="store_true",
+        help="disable random in IA. The bot chooses only the first in the best choices founds.",
+    ),    
+    my_parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="verbose mode. Use for debug.",
+    )
+    my_parser.add_argument(
+        "-u",
+        "--update",
+        action="store_true",
+        help="self-update",
+    ),
 
     args = my_parser.parse_args()
     return args

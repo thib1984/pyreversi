@@ -1,3 +1,10 @@
+## 1.1.0
+
+- [x] add rules
+- [x] use english
+- [x] display level IA in score
+- [x] replace --random with --fix
+
 ## 1.0.3
 
 - [x] black begins
