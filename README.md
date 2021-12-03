@@ -15,18 +15,19 @@ pyreversi is a reversi game in your terminal with IA available.
 
 - ``-b --blackbot [int]`` : black player is a bot, with level [int]
 - ``-w --whitebot [int]`` : white player is a bot, with level [int]
+- ``-f/--fix`` : disable random choice in the set of best choices for IA
 
-- level 0 : one in available choice
+- level 0 : one in available choices
 - level 1 : max increase score
 - level 2 : max increase score + target corner + not offer corner
-- level 3 : max increase score + target corner + not offer corner considering next turn (with IA level2)
-- level 4 : max increase score + target corner + not offer corner considering next turn + consider safe place (with IA level2)
+- level 3 : max increase score + target corner + not offer corner considering next turn
+- level 4 : max increase score + target corner + not offer corner considering next turn + considering safe place
 ## Other options
 
 - ``-u/--update`` update the package
 - ``-v/--verbose`` verbose mode
 - ``-a/--auto`` auto mode (disable "press any key")
-- ``-r/--random`` random choice in the set of best choices for IA
+- ``-r/--rules`` display rules
 # ⚙️ Install
 
 See [this page](INSTALL.md)
