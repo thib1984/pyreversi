@@ -1,3 +1,8 @@
+## 1.2.0
+
+- [ ] clean code
+- [ ] batch mode
+- [ ] condensate mode
 ## 1.1.0
 
 - [x] add rules
