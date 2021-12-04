@@ -29,25 +29,25 @@ from pyreversi.args import compute_args
 
 def play():
 
-    my_plateau = INIT_PLATEAU
+    board = INIT_PLATEAU
     joueur = None
 
     while True:
         joueur = opposite_joueur(joueur)
-        display_plateau(my_plateau)
+        display_plateau(board)
         
-        if end_game(my_plateau):
-            display_endgame(my_plateau)
+        if end_game(board):
+            display_endgame(board)
             os.sys.exit(0)
-        if not can_play(my_plateau, joueur):
+        if not can_play(board, joueur):
             display_cant_play(joueur)
             joueur = opposite_joueur(joueur)
 
         if not is_bot(joueur):
             position = ask_move
         else:
-            position = calcul_bot(my_plateau, joueur, level_bot(joueur))
+            position = calcul_bot(board, joueur, level_bot(joueur))
             display_bot_move(joueur, position)
-        calcul_nouveau_plateau(my_plateau, joueur, position)
+        calcul_nouveau_plateau(board, joueur, position)
 
 

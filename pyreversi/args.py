@@ -18,10 +18,9 @@ class CustomHelpFormatter(argparse.HelpFormatter):
         get_metavar = self._metavar_formatter(action, default_metavar)
         if action.nargs == argparse.ONE_OR_MORE:
             return "%s" % get_metavar(1)
-        else:
-            return super(CustomHelpFormatter, self)._format_args(
-                action, default_metavar
-            )
+        return super(CustomHelpFormatter, self)._format_args(
+            action, default_metavar
+        )
 
 def compute_args():
     """

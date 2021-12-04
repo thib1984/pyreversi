@@ -11,7 +11,7 @@ import os
 from pyreversi.args import compute_args
 
 
-def clearConsole():
+def clear():
     if not compute_args().verbose:
         command = "clear"
         if os.name in (
@@ -23,7 +23,7 @@ def clearConsole():
 
 
 def display_plateau(plateau):
-    clearConsole()
+    clear()
     data = []
     headers = ["", "A", "B", "C", "D", "E", "F", "G", "H"]
     for i in range(1, 9):
@@ -67,11 +67,11 @@ def display_plateau(plateau):
         + pw
     )
 
-def display_endgame(my_plateau):
+def display_endgame(board):
     print("game over!")
-    if score(WHITE, my_plateau) > score(BLACK, my_plateau):
+    if score(WHITE, board) > score(BLACK, board):
         print(WHITE + " wins !")
-    elif score(WHITE, my_plateau) < score(BLACK, my_plateau):
+    elif score(WHITE, board) < score(BLACK, board):
         print(BLACK + " wins !")
     else:
         print("draw match !")
