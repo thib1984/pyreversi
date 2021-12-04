@@ -2,6 +2,8 @@
 
 - [x] clean code
 - [x] init level 5
+- [x] batch mode
+- [ ] condensate mode
 ## 1.1.0
 
 - [x] add rules
