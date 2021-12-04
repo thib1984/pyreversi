@@ -38,7 +38,16 @@ def compute_args():
         Written by thib1984.""",
         formatter_class=CustomHelpFormatter,
     )
-
+    my_parser.add_argument(
+        "-n",
+        "--games",
+        metavar="X",
+        action="store",
+        type=int,
+        default=0,
+        choices=range(1, 1001),
+        help="number games",
+    )  
     my_parser.add_argument(
         "-r",
         "--rules",
@@ -52,7 +61,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 5),
+        choices=range(0, 6),
         help="black player is a bot with a level [X] (in 1->4)",
     )        
     my_parser.add_argument(
@@ -62,7 +71,7 @@ def compute_args():
         action="store",
         type=int,
         default=-1,
-        choices=range(0, 5),
+        choices=range(0, 6),
         help="white player is a bot with a level [X] (in 1->4)",
     )    
     my_parser.add_argument(

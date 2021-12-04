@@ -1,7 +1,6 @@
-from pyreversi import pyreversi
-from pyreversi.args import compute_args
-from pyreversi.plateau import BLACK, WHITE, VIDEE, opposite_joueur
 
+from pyreversi.plateau import BLACK, WHITE, VIDEE
+from pyreversi.display import debug
 
 def is_valid_move(board, joueur, position):
 
@@ -130,8 +129,7 @@ def available_moves(board, joueur):
             move = chr(65 + i) + str(j + 1)
             if is_valid_move(board, joueur, move):
                 moves.append(move)
-    if compute_args().verbose:
-        print("available_moves : " + str(moves))                 
+    debug("available_moves for " + joueur +" : " + str(moves))                 
     return moves
 
 def can_play(board,joueur):
