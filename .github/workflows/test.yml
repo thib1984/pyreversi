@@ -1,0 +1,26 @@
+name: test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: minimal test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'    
+      - name: update pip
+        run: |
+          python3 -m pip install --upgrade pip        
+      - name: install
+        run: |
+          pip install .
+      - name: minimal test
+        run: |
+          pyreversi -w 5 -b 5 -af           
+
