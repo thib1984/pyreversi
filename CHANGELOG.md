@@ -1,3 +1,7 @@
+## 1.2.1
+
+- [x] optimize execution time
+- [x] degradate mode for python 3.6
 ## 1.2.0
 
 - [x] clean code

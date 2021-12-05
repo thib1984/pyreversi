@@ -22,51 +22,62 @@ def clear():
 
 
 def display_plateau_and_score(plateau, scorew, scoreb,game):
-    clear()
-    data = []
-    headers = ["", "A", "B", "C", "D", "E", "F", "G", "H"]
-    for i in range(1, 9):
-        ligne = []
-        ligne.append(i)
-        for j in range(0, 8):
-            ligne.append(plateau[i - 1][j])
-        data.append(ligne)
-    patterns = [
-        (WHITE, lambda text: style(text, bg="green")),
-        (BLACK, lambda text: style(text, bg="green")),
-        (VIDEE, lambda text: style(text, bg="green")),
-    ]
-
-    table = columnar(
-        data,
-        headers,
-        no_borders=False,
-        wrap_max=0,
-        patterns=patterns,
-        justify="c",
-        max_column_width=2,
-    )
-    if compute_args().games!=0:
-        info("BATCH MODE : game " + str(game) + " / " + str(compute_args().games))
-    info(table)
-    if compute_args().whitebot != -1:
-        pw = WHITE + " (IA lvl " + str(compute_args().whitebot) + ")"
-    else:
-        pw = WHITE
-    if compute_args().blackbot != -1:
-        pb = BLACK + " (IA lvl " + str(compute_args().blackbot) + ")"
-    else:
-        pb = BLACK
-    info(
-        "score : "
-        + pb
-        + " "
-        + str(scoreb).rjust(2, "0")
-        + " - "
-        + str(scorew).rjust(2, "0")
-        + " "
-        + pw
-    )
+    if not compute_args().silent:
+        clear()
+        data = []
+        headers = ["", "A", "B", "C", "D", "E", "F", "G", "H"]
+        for i in range(1, 9):
+            ligne = []
+            ligne.append(i)
+            for j in range(0, 8):
+                ligne.append(plateau[i - 1][j])
+            data.append(ligne)
+        patterns = [
+            (WHITE, lambda text: style(text, bg="green")),
+            (BLACK, lambda text: style(text, bg="green")),
+            (VIDEE, lambda text: style(text, bg="green")),
+        ]
+        try:
+            table = columnar(
+                data,
+                headers,
+                no_borders=False,
+                wrap_max=0,
+                patterns=patterns,
+                justify="c",
+                max_column_width=2,
+            )
+        except Exception:
+            table = columnar(
+                data,
+                headers,
+                no_borders=False,
+                wrap_max=0,
+                #patterns=patterns,
+                justify="c",
+                max_column_width=2,
+            )                
+        if compute_args().games!=0:
+            info("BATCH MODE : game " + str(game) + " / " + str(compute_args().games))
+        info(table)
+        if compute_args().whitebot != -1:
+            pw = WHITE + " (IA lvl " + str(compute_args().whitebot) + ")"
+        else:
+            pw = WHITE
+        if compute_args().blackbot != -1:
+            pb = BLACK + " (IA lvl " + str(compute_args().blackbot) + ")"
+        else:
+            pb = BLACK
+        info(
+            "score : "
+            + pb
+            + " "
+            + str(scoreb).rjust(2, "0")
+            + " - "
+            + str(scorew).rjust(2, "0")
+            + " "
+            + pw
+        )
 
 
 def display_endgame(board, scorew, scoreb):
