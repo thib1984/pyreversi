@@ -10,7 +10,6 @@ from pyreversi.update import update
 from pyreversi.display import display_rules, warning
 from pyreversi.bot import is_bot
 import os
-import colorama
 
 
 def pyreversi():
@@ -18,7 +17,6 @@ def pyreversi():
     pyreversi entry point
     """
     
-    colorama.init()
 
     args = compute_args()
     if args.update:

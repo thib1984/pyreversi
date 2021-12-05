@@ -3,7 +3,8 @@
 - [x] clean code
 - [x] init level 5 (beta)
 - [x] batch mode
-- [ ] condensate mode
+- [x] condensate mode
+- [x] remove colorama useless
 ## 1.1.0
 
 - [x] add rules
