@@ -1,7 +1,8 @@
-## 1.2.2
+## 1.3.0
 
 - [x] nocolor mode
-- [x] invert nocolor / games optiion
+- [x] invert nocolor / games option
+- [x] add windows support
 ## 1.2.1
 
 - [x] optimize execution time

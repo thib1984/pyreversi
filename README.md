@@ -28,7 +28,7 @@ pyreversi is a reversi game in your terminal with IA available.
 - ``-r/--rules`` display rules of reversi game
 - ``-a/--auto`` auto mode (disable "press any key")
 - ``-g/--games [n]`` batch mode with [n] games
-- ``-n/--nocolor`` disable color
+- ``-n/--nocolor`` disable color (forced for windows)
 - ``-u/--update`` self update the package
 ## Developper options
 
