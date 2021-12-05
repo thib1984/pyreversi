@@ -1,10 +1,10 @@
 from pyreversi.args import compute_args
-
+import platform
 
 CORNERS = ["A1", "A8", "H1", "H8"]
 BLACK = "\U000026AB"
 WHITE = "\U000026AA"
-if compute_args().nocolor:
+if compute_args().nocolor or platform.system().lower() in "windows":
     BLACK = "X"
     WHITE = "O"    
 VIDEE = " "

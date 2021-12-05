@@ -5,7 +5,7 @@ from pyreversi.plateau import BLACK, WHITE, VIDEE
 from columnar import columnar
 from click import style
 import os
-
+import platform
 
 from pyreversi.args import compute_args
 
@@ -32,7 +32,7 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
             for j in range(0, 8):
                 ligne.append(plateau[i - 1][j])
             data.append(ligne)
-        if not compute_args().nocolor:    
+        if not compute_args().nocolor and not platform.system().lower() in "windows":    
             patterns = [
                 (WHITE, lambda text: style(text, bg="green")),
                 (BLACK, lambda text: style(text, bg="green")),
