@@ -46,7 +46,7 @@ def compute_args():
         type=int,
         default=0,
         choices=range(1, 1001),
-        help="number games",
+        help="batch mode : number games (in 1->1000)",
     )  
     my_parser.add_argument(
         "-r",
@@ -62,7 +62,7 @@ def compute_args():
         type=int,
         default=-1,
         choices=range(0, 6),
-        help="black player is a bot with a level [X] (in 1->4)",
+        help="black player is a bot with a level [X] (in 1->5)",
     )        
     my_parser.add_argument(
         "-w",
@@ -72,13 +72,13 @@ def compute_args():
         type=int,
         default=-1,
         choices=range(0, 6),
-        help="white player is a bot with a level [X] (in 1->4)",
+        help="white player is a bot with a level [X] (in 1->5)",
     )    
     my_parser.add_argument(
         "-a",
         "--auto",
         action="store_true",
-        help="auto mode. Don't ask for uncessary actions.",
+        help="auto mode. Don't ask for uncessary actions",
     )                     
     my_parser.add_argument(
         "-f",
@@ -90,13 +90,13 @@ def compute_args():
         "-v",
         "--verbose",
         action="store_true",
-        help="verbose mode. Use for debug.",
+        help="verbose mode. Use for debug",
     )
     my_parser.add_argument(
         "-s",
         "--silent",
         action="store_true",
-        help="silent mode.",
+        help="silent mode. Use for batch mode",
     )    
     my_parser.add_argument(
         "-u",
