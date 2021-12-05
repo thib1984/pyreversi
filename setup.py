@@ -19,13 +19,13 @@ setup(
         ],
     },
     classifiers=[
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX",
     ],
     python_requires=">=3.6",
 )
