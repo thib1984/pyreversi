@@ -22,5 +22,5 @@ jobs:
           pip install .
       - name: minimal test
         run: |
-          pyreversi -w 5 -b 5 -af           
+          pyreversi -w 5 -b 5 -n 3 -afs           
 
