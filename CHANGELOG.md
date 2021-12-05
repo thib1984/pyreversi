@@ -7,7 +7,7 @@
 - [x] remove colorama useless
 - [x] fix python 3.7 or higher compatibility
 - [x] fix OS compatibility
-- [ ] minimal test in gitlab (install + auto mode with fix)
+- [x] minimal test in gitlab (install + auto mode with fix)
 ## 1.1.0
 
 - [x] add rules
