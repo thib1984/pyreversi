@@ -1,6 +1,12 @@
+from pyreversi.args import compute_args
+
+
 CORNERS = ["A1", "A8", "H1", "H8"]
 BLACK = "\U000026AB"
 WHITE = "\U000026AA"
+if compute_args().nocolor:
+    BLACK = "X"
+    WHITE = "O"    
 VIDEE = " "
 
 INIT_PLATEAU = [

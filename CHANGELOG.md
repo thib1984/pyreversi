@@ -1,3 +1,7 @@
+## 1.2.2
+
+- [x] nocolor mode
+- [x] invert nocolor / games optiion
 ## 1.2.1
 
 - [x] optimize execution time

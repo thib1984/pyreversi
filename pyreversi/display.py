@@ -32,11 +32,16 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
             for j in range(0, 8):
                 ligne.append(plateau[i - 1][j])
             data.append(ligne)
-        patterns = [
-            (WHITE, lambda text: style(text, bg="green")),
-            (BLACK, lambda text: style(text, bg="green")),
-            (VIDEE, lambda text: style(text, bg="green")),
-        ]
+        if not compute_args().nocolor:    
+            patterns = [
+                (WHITE, lambda text: style(text, bg="green")),
+                (BLACK, lambda text: style(text, bg="green")),
+                (VIDEE, lambda text: style(text, bg="green")),
+            ]
+            maxcol=2
+        else:
+             patterns =[]
+             maxcol=3   
         try:
             table = columnar(
                 data,
@@ -45,7 +50,7 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
                 wrap_max=0,
                 patterns=patterns,
                 justify="c",
-                max_column_width=2,
+                max_column_width=maxcol,
             )
         except Exception:
             table = columnar(

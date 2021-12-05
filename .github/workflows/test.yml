@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-version: ['ubuntu-20.04','macos-latest']
+        os-version: ['ubuntu-20.04','macos-latest','windows-latest']
         python-version: [ '3.9' ]
         include:
           - os-version: 'ubuntu-20.04'
@@ -36,7 +36,7 @@ jobs:
           pip install .
       - name: minimal test
         run: |
-          pyreversi -w 5 -b 5 -n 3 -afs           
+          pyreversi -w 5 -b 5 -g 3 -afs           
       - name: minimal test with board
         run: |
           pyreversi -w 0 -b 0 -af 
