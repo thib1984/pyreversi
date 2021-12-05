@@ -1,7 +1,7 @@
 ## 1.2.0
 
 - [x] clean code
-- [x] init level 5
+- [x] init level 5 (beta)
 - [x] batch mode
 - [ ] condensate mode
 ## 1.1.0

@@ -93,6 +93,12 @@ def compute_args():
         help="verbose mode. Use for debug.",
     )
     my_parser.add_argument(
+        "-s",
+        "--silent",
+        action="store_true",
+        help="silent mode.",
+    )    
+    my_parser.add_argument(
         "-u",
         "--update",
         action="store_true",

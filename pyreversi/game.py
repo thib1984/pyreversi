@@ -8,6 +8,7 @@ from pyreversi.display import (
     display_cant_play,
     display_bot_move,
     debug,
+    warning,
     clear
 )
 from pyreversi.plateau import (
@@ -67,13 +68,12 @@ def play():
                         pb = BLACK + " (IA lvl " + str(compute_args().blackbot) + ")"
                     else:
                         pb = BLACK 
-                    print("FIN BATCH : " + pb + " - " + pw)
-
-                    print("Victories " + BLACK + " : " + str(winb))
-                    print("Victories " + WHITE + " : " + str(winw))
-                    print("Draws : " + str(draw))
-                    print("Points " + BLACK + " : " + str(totb))
-                    print("Points " + WHITE + " : " + str(totw))
+                    warning("FIN BATCH : " + pb + " - " + pw)
+                    warning("Victories " + BLACK + " : " + str(winb))
+                    warning("Victories " + WHITE + " : " + str(winw))
+                    warning("Draws : " + str(draw))
+                    warning("Points " + BLACK + " : " + str(totb))
+                    warning("Points " + WHITE + " : " + str(totw))
                     os.sys.exit(0)
                 else:
                     game=game+1

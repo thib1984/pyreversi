@@ -11,7 +11,7 @@ from pyreversi.args import compute_args
 
 
 def clear():
-    if not compute_args().verbose:
+    if not compute_args().verbose and not compute_args().silent:
         command = "clear"
         if os.name in (
             "nt",
@@ -131,11 +131,12 @@ def debug(phrase):
         print("debug : " + phrase)
 
 def info(phrase):
-    print(phrase)
+    if not compute_args().silent:
+        print(phrase)
 
 def warning(phrase):
     print(phrase)  
 
 def inputauto(phrase):
-    if not compute_args().auto:    
+    if not compute_args().auto and not compute_args().silent:    
         input(phrase)      
