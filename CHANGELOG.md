@@ -1,6 +1,7 @@
 ## 1.3.1
 
-- [x] fix invalid move
+- [x] fix invalid move/invalid place mmessage
+- [x] fix press any key -> press enter 
 - [x] fix case test
 
 ## 1.3.0
