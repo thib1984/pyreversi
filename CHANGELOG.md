@@ -1,3 +1,7 @@
+## 1.3.2
+
+- [x] fix ctrl c quit
+
 ## 1.3.1
 
 - [x] fix invalid move/invalid place mmessage
