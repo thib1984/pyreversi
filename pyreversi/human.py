@@ -7,10 +7,10 @@ import re
 def ask_move(board,joueur,game):
     while True:
         answer = input(joueur + " , enter your move : ")
-        if not re.match("[A-H][1-8]", answer):
+        if not re.match("[a-h][1-8]", answer.lower()):
             display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game)
             warning(
-                "no valid place - enter [A-H][1-8] format. For example : B3"
+                "not valid place - enter [A-H][1-8] format. For example : B3 or b3"
             )
         elif not is_valid_move(board, joueur, answer):
             display_plateau_and_score(board, score(WHITE,board), score(BLACK,board),game)
