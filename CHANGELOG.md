@@ -1,3 +1,8 @@
+## 1.3.1
+
+- [x] fix invalid move
+- [x] fix case test
+
 ## 1.3.0
 
 - [x] nocolor mode
