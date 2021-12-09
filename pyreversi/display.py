@@ -96,12 +96,12 @@ def display_endgame(board, scorew, scoreb):
 
 
 def display_cant_play(joueur):
-    inputauto(joueur + " , no move available, press any key")
+    inputauto(joueur + " , no move available, press 'enter'")
 
 
 def display_bot_move(joueur, position):
     info(joueur + " , plays move : " + position)
-    inputauto("press any key")
+    inputauto("press any 'enter'")
 
 
 def display_rules():
