@@ -10,10 +10,10 @@ def ask_move(board,joueur,game):
         if not re.match("[a-h][1-8]", answer.lower()):
             display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game)
             warning(
-                "not valid place - enter [A-H][1-8] format. For example : B3 or b3"
+                "invalid place - enter [A-H][1-8] format. For example : B3 or b3"
             )
         elif not is_valid_move(board, joueur, answer):
             display_plateau_and_score(board, score(WHITE,board), score(BLACK,board),game)
-            warning("no valid move")         
+            warning("invalid move")         
         else:
             return answer
