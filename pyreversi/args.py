@@ -46,7 +46,7 @@ def compute_args():
         type=int,
         default=0,
         choices=range(1, 1001),
-        help="batch mode : number games (in 1->1000)",
+        help="batch mode : number games (in 1->1000). Be patient.",
     )  
     my_parser.add_argument(
         "-r",
@@ -58,7 +58,7 @@ def compute_args():
         "-n",
         "--nocolor",
         action="store_true",
-        help="no color : use if unicode or color problems",
+        help="no color : use if unicode or color problems (forced option for windows)",
     ),          
     my_parser.add_argument(
         "-b",
@@ -90,7 +90,7 @@ def compute_args():
         "-f",
         "--fix",
         action="store_true",
-        help="disable random in IA. The bot chooses only the first in the best choices founds.",
+        help="disable random in IA. The bot chooses the first in the best choices founds.",
     ),    
     my_parser.add_argument(
         "-v",

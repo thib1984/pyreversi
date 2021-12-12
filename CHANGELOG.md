@@ -1,3 +1,7 @@
+## 1.3.3
+
+- [x] fix help message
+
 ## 1.3.2
 
 - [x] fix ctrl c quit
