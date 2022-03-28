@@ -29,10 +29,10 @@ def display_plateau_and_score(plateau, scorew, scoreb,game,winb,winw,draw,availa
     if compute_args().tutorial:
         for i in range(0, 8):
             for j in range(0, 8):
-                if board[i][j] == VIDEE:
+                if board[j][i] == VIDEE:
                     move = chr(65 + i) + str(j + 1)
                     if move in available_moves:
-                        board[i][j]=AVAILABLE
+                        board[j][i]=AVAILABLE
 
             
     if not compute_args().silent:
