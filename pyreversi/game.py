@@ -18,6 +18,7 @@ from pyreversi.plateau import (
     opposite_joueur,
 )
 from pyreversi.rules import (
+    available_moves,
     end_game,
     score,
     calcul_nouveau_plateau,
@@ -44,7 +45,7 @@ def play():
         totb=0
         while True:
             joueur = opposite_joueur(joueur)
-            display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game)
+            display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game,winb,winw,draw,available_moves(board, joueur))
             debug("compute if endgame")
             if end_game(board):
                 display_endgame(board, score(WHITE,board), score(BLACK,board))
@@ -81,14 +82,14 @@ def play():
                         board = copy.deepcopy(INIT_PLATEAU)
                         joueur = None
                         joueur = opposite_joueur(joueur)
-                        display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game)                                        
+                        display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game, winb, winw,draw, available_moves(board, joueur))                                        
             debug("compute if " + joueur + " can play")    
             if not can_play(board, joueur):
                 display_cant_play(joueur)
                 joueur = opposite_joueur(joueur)
 
             if not is_bot(joueur):
-                position = ask_move(board,joueur,game)
+                position = ask_move(board,joueur,game,winb,winw,draw)
             else:
                 position = calcul_bot(board, joueur, level_bot(joueur))
                 display_bot_move(joueur, position)

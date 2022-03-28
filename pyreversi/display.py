@@ -1,11 +1,12 @@
 """
 pyreversi use case
 """
-from pyreversi.plateau import BLACK, WHITE, VIDEE
+from pyreversi.plateau import BLACK, WHITE, VIDEE, AVAILABLE
 from columnar import columnar
 from click import style
 import os
 import platform
+import copy
 
 from pyreversi.args import compute_args
 
@@ -21,7 +22,19 @@ def clear():
         os.system(command)
 
 
-def display_plateau_and_score(plateau, scorew, scoreb,game):
+def display_plateau_and_score(plateau, scorew, scoreb,game,winb,winw,draw,available_moves):
+
+    board = copy.deepcopy(plateau)
+
+    if compute_args().tutorial:
+        for i in range(0, 8):
+            for j in range(0, 8):
+                if board[i][j] == VIDEE:
+                    move = chr(65 + i) + str(j + 1)
+                    if move in available_moves:
+                        board[i][j]=AVAILABLE
+
+            
     if not compute_args().silent:
         clear()
         data = []
@@ -30,10 +43,11 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
             ligne = []
             ligne.append(i)
             for j in range(0, 8):
-                ligne.append(plateau[i - 1][j])
+                ligne.append(board[i - 1][j])
             data.append(ligne)
         if not compute_args().nocolor and not platform.system().lower() in "windows":    
             patterns = [
+                (AVAILABLE, lambda text: style(text, bg="yellow")),                
                 (WHITE, lambda text: style(text, bg="green")),
                 (BLACK, lambda text: style(text, bg="green")),
                 (VIDEE, lambda text: style(text, bg="green")),
@@ -64,6 +78,9 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
             )                
         if compute_args().games!=0:
             info("BATCH MODE : game " + str(game) + " / " + str(compute_args().games))
+            warning("Victories " + BLACK + " : " + str(winb))
+            warning("Victories " + WHITE + " : " + str(winw))
+            warning("Draws : " + str(draw))
         info(table)
         if compute_args().whitebot != -1:
             pw = WHITE + " (IA lvl " + str(compute_args().whitebot) + ")"
@@ -83,6 +100,7 @@ def display_plateau_and_score(plateau, scorew, scoreb,game):
             + " "
             + pw
         )
+
 
 
 def display_endgame(board, scorew, scoreb):

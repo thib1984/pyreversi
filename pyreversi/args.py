@@ -55,6 +55,12 @@ def compute_args():
         help="display rules of reversi",
     ),
     my_parser.add_argument(
+        "-t",
+        "--tutorial",
+        action="store_true",
+        help="display available moves",
+    ),    
+    my_parser.add_argument(
         "-n",
         "--nocolor",
         action="store_true",

@@ -8,6 +8,7 @@ if compute_args().nocolor or platform.system().lower() in "windows":
     BLACK = "X"
     WHITE = "O"    
 VIDEE = " "
+AVAILABLE = "\U000000A0"
 
 INIT_PLATEAU = [
     [VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE, VIDEE],

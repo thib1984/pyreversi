@@ -1,3 +1,7 @@
+## 1.4.0
+
+- [x] show partial score in batch
+- [x] add --tutorial option to show available moves
 ## 1.3.4
 
 - [x] fix help message

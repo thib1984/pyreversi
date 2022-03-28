@@ -10,6 +10,8 @@ pyreversi is a reversi game in your terminal with IA available.
 # 🚀 How to use **pyreversi**
 
 ``pyreversi``
+or
+``pyreversi -t`` to be helped for the available moves (in yellow)
 
 ## IA options
 
