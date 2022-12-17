@@ -1,6 +1,7 @@
 ## 1.5.0
 
  - [x] end support of 3.6 pyhon
+ - [x] modifiy pipeline github
 
 ## 1.4.2
 
