@@ -1,3 +1,7 @@
+## 1.4.2
+
+- [x] fix tutorial mode if first player can't play
+
 ## 1.4.1
 
 - [x] fix tutorial options

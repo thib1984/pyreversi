@@ -87,7 +87,7 @@ def play():
             if not can_play(board, joueur):
                 display_cant_play(joueur)
                 joueur = opposite_joueur(joueur)
-
+                display_plateau_and_score(board,score(WHITE,board), score(BLACK,board),game,winb,winw,draw,available_moves(board, joueur))
             if not is_bot(joueur):
                 position = ask_move(board,joueur,game,winb,winw,draw)
             else:
