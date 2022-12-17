@@ -30,7 +30,8 @@ jobs:
 
       - name: Deduce relase
         id: vars
-        run: echo ::set-output name=relase_tag::$(grep version setup.py | cut -d "\"" -f2)
+        #run: echo ::set-output name=relase_tag::$(grep version setup.py | cut -d "\"" -f2)
+        run: echo "relase_tag=$(grep version setup.py | cut -d '\"' -f2)" >> $GITHUB_OUTPUT
       - name: tweet
         env: 
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
