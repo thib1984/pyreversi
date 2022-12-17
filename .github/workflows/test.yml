@@ -9,17 +9,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-version: ['ubuntu-20.04','macos-latest','windows-latest']
+        os-version: ['ubuntu-2.04','macos-latest','windows-latest']
         python-version: [ '3.9' ]
         include:
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.6'
-          - os-version: 'ubuntu-20.04'
+          - os-version: 'ubuntu-22.04'
             python-version: '3.7'
-          - os-version: 'ubuntu-20.04'
+          - os-version: 'ubuntu-22.04'
             python-version: '3.8'           
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.10'             
+          - os-version: 'ubuntu-22.04'
+            python-version: '3.9'    
+          - os-version: 'ubuntu-22.04'
+            python-version: '3.10'     
+            - os-version: 'ubuntu-22.04'
+            python-version: '3.11'                       
     runs-on: ${{ matrix.os-version }}
     steps:
       - name: checkout

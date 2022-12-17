@@ -18,16 +18,16 @@ setup(
             "pyreversi=pyreversi.__init__:pyreversi"
         ],
     },
-    classifiers=[
-        "Programming Language :: Python :: 3.6",        
+    classifiers=[     
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",        
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
         "License :: OSI Approved :: MIT License",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )

@@ -1,3 +1,7 @@
+## 1.5.0
+
+ - [x] end support of 3.6 pyhon
+
 ## 1.4.2
 
 - [x] fix tutorial mode if first player can't play
