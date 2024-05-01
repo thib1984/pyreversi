@@ -64,7 +64,7 @@ def compute_args():
         "-n",
         "--nocolor",
         action="store_true",
-        help="no color : use if unicode or color problems (forced option for windows)",
+        help="no color : use if unicode or color problems",
     ),          
     my_parser.add_argument(
         "-b",

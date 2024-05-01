@@ -30,7 +30,7 @@ or
 - ``-r/--rules`` display rules of reversi game
 - ``-a/--auto`` auto mode (disable "press any key")
 - ``-g/--games [n]`` batch mode with [n] games
-- ``-n/--nocolor`` disable color (forced for windows)
+- ``-n/--nocolor`` disable color
 - ``-u/--update`` self update the package
 ## Developper options
 

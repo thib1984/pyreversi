@@ -45,7 +45,7 @@ def display_plateau_and_score(plateau, scorew, scoreb,game,winb,winw,draw,availa
             for j in range(0, 8):
                 ligne.append(board[i - 1][j])
             data.append(ligne)
-        if not compute_args().nocolor and not platform.system().lower() in "windows":    
+        if not compute_args().nocolor:    
             patterns = [
                 (AVAILABLE, lambda text: style(text, bg="yellow")),                
                 (WHITE, lambda text: style(text, bg="green")),

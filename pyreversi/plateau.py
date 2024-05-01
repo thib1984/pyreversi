@@ -4,7 +4,7 @@ import platform
 CORNERS = ["A1", "A8", "H1", "H8"]
 BLACK = "\U000026AB"
 WHITE = "\U000026AA"
-if compute_args().nocolor or platform.system().lower() in "windows":
+if compute_args().nocolor:
     BLACK = "X"
     WHITE = "O"    
 VIDEE = " "

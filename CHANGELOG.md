@@ -1,3 +1,7 @@
+## 1.5.1
+
+ - [x] delete autodisable color in windows
+
 ## 1.5.0
 
  - [x] end support of 3.6 pyhon
