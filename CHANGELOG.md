@@ -1,3 +1,7 @@
+## 2.1.1
+
+ - [x] display version
+ 
 ## 2.1.0
 
  - [x] disable slef-update

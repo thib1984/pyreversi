@@ -4,7 +4,18 @@ pygitscrum argparse gestion
 
 import argparse
 import sys
+import importlib.metadata
 
+def get_env_report():
+    lines = []
+
+    lines.append("\nInstalled packages:")
+    for dist in sorted(importlib.metadata.distributions(), key=lambda d: d.metadata["Name"].lower()):
+        name = dist.metadata["Name"]
+        version = dist.version
+        lines.append(f"  - {name}=={version}")
+
+    return "\n".join(lines)
 
 class CustomHelpFormatter(argparse.RawDescriptionHelpFormatter,argparse.HelpFormatter):
     def _format_action_invocation(self, action):
@@ -28,7 +39,7 @@ def compute_args():
     """
     my_parser = argparse.ArgumentParser(
         description="pyreversi is a reversi game in your terminal with IA available.",
-        epilog="""
+        epilog=f"""
 To upgrade, run:
     pipx upgrade pyreversi --include-deps
 To install, run:
@@ -39,6 +50,8 @@ To uninstall, run:
     pipx uninstall pyreversi
 To force uninstall (if needed), run:
     pipx uninstall pyreversi --force
+
+{get_env_report()}
 
 Full documentation at: <https://github.com/thib1984/pyreversi>.
 Report bugs to <https://github.com/thib1984/pyreversi/issues>.
