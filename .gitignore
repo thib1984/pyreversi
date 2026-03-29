@@ -3,4 +3,4 @@ dist
 pyreversi.egg-info
 .vscode
 venv
-
+pyreversi_env

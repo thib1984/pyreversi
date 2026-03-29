@@ -1,3 +1,7 @@
+## 2.0.0
+
+ - [x] clean docs
+
 ## 1.5.1
 
  - [x] delete autodisable color in windows
