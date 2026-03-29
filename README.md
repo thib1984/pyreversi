@@ -31,7 +31,7 @@ or
 - ``-a/--auto`` auto mode (disable "press any key")
 - ``-g/--games [n]`` batch mode with [n] games
 - ``-n/--nocolor`` disable color
-- ``-u/--update`` self update the package
+
 ## Developper options
 
 - ``-f/--fix`` : disable random choice in the set of best choices for IA

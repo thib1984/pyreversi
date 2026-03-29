@@ -6,7 +6,7 @@ import argparse
 import sys
 
 
-class CustomHelpFormatter(argparse.HelpFormatter):
+class CustomHelpFormatter(argparse.RawDescriptionHelpFormatter,argparse.HelpFormatter):
     def _format_action_invocation(self, action):
         if not action.option_strings or action.nargs == 0:
             return super()._format_action_invocation(action)
@@ -29,13 +29,24 @@ def compute_args():
     my_parser = argparse.ArgumentParser(
         description="pyreversi is a reversi game in your terminal with IA available.",
         epilog="""
-        Full documentation at: <https://github.com/thib1984/pyreversi>.
-        Report bugs to <https://github.com/thib1984/pyreversi/issues>.
-        MIT Licence.
-        Copyright (c) 2021 thib1984.
-        This is free software: you are free to change and redistribute it.
-        There is NO WARRANTY, to the extent permitted by law.
-        Written by thib1984.""",
+To upgrade, run:
+    pipx upgrade pyreversi --include-deps
+To install, run:
+    pipx install pyreversi
+To force reinstall, run:
+    pipx install pyreversi --force
+To uninstall, run:
+    pipx uninstall pyreversi
+To force uninstall (if needed), run:
+    pipx uninstall pyreversi --force
+
+Full documentation at: <https://github.com/thib1984/pyreversi>.
+Report bugs to <https://github.com/thib1984/pyreversi/issues>.
+MIT Licence.
+Copyright (c) 2021 thib1984.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Written by thib1984.""",
         formatter_class=CustomHelpFormatter,
     )
     my_parser.add_argument(
@@ -110,12 +121,6 @@ def compute_args():
         action="store_true",
         help="silent mode. Use for batch mode",
     )    
-    my_parser.add_argument(
-        "-u",
-        "--update",
-        action="store_true",
-        help="self-update",
-    ),
 
     args = my_parser.parse_args()
     return args
