@@ -41,7 +41,8 @@ def compute_args():
         description="pyreversi is a reversi game in your terminal with IA available.",
         epilog=f"""
 To upgrade, run:
-    pipx upgrade pyreversi --include-deps
+    pipx upgrade pyreversi
+    pipx reinstall pyreversi #to force update dependencies
 To install, run:
     pipx install pyreversi
 To force reinstall, run:

@@ -30,10 +30,9 @@ pipx install pyreversi
 # Upgrade
 
 ```
-pipx upgrade pyreversi --include-deps
+pipx upgrade pyreversi
+pipx reinstall pyreversi #to force update dependencies
 ```
-
-This command upgrades the application to the latest version and also updates all its dependencies.
 
 # Uninstall
 
